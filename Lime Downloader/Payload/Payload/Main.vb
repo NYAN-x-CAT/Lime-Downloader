@@ -38,8 +38,11 @@
     End Sub
 
     Private Shared Function EPI(b)
-        On Error Resume Next
-        Return b.EntryPoint.Invoke(Nothing, Nothing)
+        Try
+            Return b.EntryPoint.Invoke(Nothing, Nothing)
+        Catch ex As Exception
+            Return b.EntryPoint.Invoke(Nothing, New Object() {Nothing})
+        End Try
     End Function
 
     Private Shared Function DW(F)
