@@ -1,17 +1,19 @@
 
-<img src="https://i.imgur.com/xEF5OFn.gif">
+<img src="https://i.imgur.com/v6FLWxF.png">
 
-# Lime Downloader
+# Lime Downloader v0.2
 
-Download a file and run it on memorey without drop it to disk.
+Download payload and run it on memorey without drop it to disk and also without crypt payload.
 
 ## Main Features
 
 * .NET - Coded in Visual Basic .NET, required framework 4.0 dependency.
  
-* Codedom - No need for external dll to compile
+* Dropless - No file drop to disk
 
-* Drop_less - No file drop to disk
+* Startup - Add persistence
+
+* Multi - Insert more than 1 link
 
  
  

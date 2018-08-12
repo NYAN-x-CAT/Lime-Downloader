@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
 
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
-        Friend ReadOnly Property Settings() As Global.Lime_Downloader.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Lime_Downloader_v0._2.My.MySettings
             Get
-                Return Global.Lime_Downloader.My.MySettings.Default
+                Return Global.Lime_Downloader_v0._2.My.MySettings.Default
             End Get
         End Property
     End Module

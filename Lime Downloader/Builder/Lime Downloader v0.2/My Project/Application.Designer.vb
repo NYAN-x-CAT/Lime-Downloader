@@ -32,7 +32,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Lime_Downloader.Form1
+            Me.MainForm = Global.Lime_Downloader_v0._2.MainForm
         End Sub
     End Class
 End Namespace
