@@ -1,19 +1,15 @@
 
-<img src="https://i.imgur.com/Qy0T5gj.png">
+<img src="https://i.imgur.com/veoGzCv.png">
 
-# Lime Downloader v0.3
+# Lime Downloader v0.4
 
 Download payload and run it on memory without dropping it to disk and also without crypt payload.
 
 ## Main Features
 
 * .NET - Coded in Visual Basic .NET, required framework 4.0 dependency.
-
-* Native - Support .NET and Native files
  
 * Dropless - No file drop to disk
-
-* Startup - Using hidden startup method
 
 * Multi - Insert more than 1 link
 
