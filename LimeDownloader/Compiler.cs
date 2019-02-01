@@ -17,7 +17,7 @@ namespace LimeDownloader
             Dictionary<string, string> ProviderOptions = new Dictionary<string, string>();
             ProviderOptions.Add("CompilerVersion", "v4.0");
 
-            string options = "/target:winexe /platform:x86 /optimize+";
+            string options = "/target:winexe /platform:anycpu /optimize+";
             if (Icon != null)
             {
                 File.Copy(Icon, CopyIcon,true);
