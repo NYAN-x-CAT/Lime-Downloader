@@ -22,8 +22,8 @@ namespace LimeDownloader
             InitializeComponent();
         }
 
-
-        private void button3_Click(object sender, EventArgs e)
+        List<string> ListOfURLS = new List<string>();
+        async private void button3_Click(object sender, EventArgs e)
         {
             string URL = Interaction.InputBox("Add Direct Link", "Add URL", "https://dropmyb.in/");
             if (string.IsNullOrEmpty(URL))
@@ -31,32 +31,26 @@ namespace LimeDownloader
             else
             {
                 if (!ListOfURLS.Contains(URL))
-                listView1.Items.Add(URL).SubItems.Add("Testing...");               
+                {
+                    ListViewItem LV = new ListViewItem();
+                    LV.Text = URL;
+                    LV.SubItems.Add("Testing");
+                    listView1.Items.Insert(0, LV);
+                    string Valid = await DownloadDataAsync(URL);
+                    LV.SubItems[1].Text = Valid;
+                    if (Valid == "Valid")
+                    {
+                        LV.ForeColor = Color.Green;
+                        ListOfURLS.Add(URL);
+                    }
+                    else
+                    {
+                        LV.ForeColor = Color.Red;
+                    }
+                }
             }
         }
 
-
-        List<string> ListOfURLS = new List<string>();
-        async private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (listView1.Items.Count > 0)
-                foreach (ListViewItem url in listView1.Items)
-                {
-                    if (!ListOfURLS.Contains(url.SubItems[0].Text))
-                    {
-                        ListOfURLS.Add(url.SubItems[0].Text);
-                        url.SubItems[1].Text = await DownloadDataAsync(url.SubItems[0].Text);
-                        if (url.SubItems[1].Text == "Valid")
-                        {
-                            url.ForeColor = Color.Green;
-                        }
-                        else
-                        {
-                            url.ForeColor = Color.Red;
-                        }
-                    }
-                }
-        }
 
 
         private async Task<string> DownloadDataAsync(string url)
