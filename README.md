@@ -1,9 +1,9 @@
 
-<img src="https://i.imgur.com/veoGzCv.png">
+<img src="https://i.imgur.com/azClWYY.png">
 
 # Lime Downloader v0.4
 
-Download payload and run it on memory without dropping it to disk and also without crypt payload.
+It's a loader that download your payload and run it on memory without dropping it to disk and also without crypt payload.
 
 ## Main Features
 
