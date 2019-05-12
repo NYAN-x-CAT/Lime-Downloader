@@ -9,56 +9,58 @@ namespace LimeDownloader
 {
     class Compiler
     {
-        public static bool CompileFromSource(string source, string Output, string Icon = null)
+        private static readonly string[] referencedAssemblies = new string[]
         {
-            string CopyIcon = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\icon.ico";
+            "System.dll",
+            "System.Windows.Forms.dll",
+            "System.Drawing.dll",
+            "Microsoft.VisualBasic.dll"
+        };
 
-            CompilerParameters CParams = new CompilerParameters();
-            Dictionary<string, string> ProviderOptions = new Dictionary<string, string>();
-            ProviderOptions.Add("CompilerVersion", "v4.0");
+        public static bool CompileFromSource(string source, string outputAssembly, string sourceIconPath = null)
+        {
+            var destinationIconPath = Environment.CurrentDirectory + "\\icon.ico";
 
-            string options = "/target:winexe /platform:anycpu /optimize+";
-            if (Icon != null)
+            var providerOptions = new Dictionary<string, string>() {
+                {"CompilerVersion", "v4.0" }
+            };
+
+            var compilerOptions = "/target:winexe /platform:anycpu /optimize";
+            if (sourceIconPath != null)
             {
-                File.Copy(Icon, CopyIcon,true);
-                options += " /win32icon:\"" + CopyIcon + "\"";
-
+                File.Copy(sourceIconPath, destinationIconPath, true);
+                compilerOptions += $" /win32icon:\"{destinationIconPath}\"";
             }
 
-            CParams.GenerateExecutable = true;
-            CParams.OutputAssembly = Output;
-            CParams.CompilerOptions = options;
-            CParams.TreatWarningsAsErrors = false;
-            CParams.IncludeDebugInformation = false;
-            CParams.ReferencedAssemblies.Add("System.dll");
-            CParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
-            CParams.ReferencedAssemblies.Add("System.Drawing.dll");
-            CParams.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll");
-
-            CompilerResults Results = new CSharpCodeProvider(ProviderOptions).CompileAssemblyFromSource(CParams, source);
-
-            if (Results.Errors.Count > 0)
+            using (var cSharpCodeProvider = new CSharpCodeProvider(providerOptions))
             {
-               MessageBox.Show(string.Format("The compiler has encountered {0} errors",
-                    Results.Errors.Count), "Errors while compiling", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                foreach (CompilerError Err in Results.Errors)
+                var compilerParameters = new CompilerParameters(referencedAssemblies)
                 {
-                    MessageBox.Show(string.Format("{0}\nLine: {1} - Column: {2}\nFile: {3}", Err.ErrorText,
-                        Err.Line, Err.Column, Err.FileName), "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    GenerateExecutable = true,
+                    OutputAssembly = outputAssembly,
+                    CompilerOptions = compilerOptions,
+                    TreatWarningsAsErrors = false,
+                    IncludeDebugInformation = false,
+                };
+                var compilerResults = cSharpCodeProvider.CompileAssemblyFromSource(compilerParameters, source);
+
+                if (compilerResults.Errors.Count > 0)
+                {
+                    MessageBox.Show(string.Format("The compiler has encountered {0} errors",
+                         compilerResults.Errors.Count), "Errors while compiling", MessageBoxButtons.OK,
+                         MessageBoxIcon.Error);
+
+                    foreach (CompilerError compilerError in compilerResults.Errors)
+                    {
+                        MessageBox.Show(string.Format("{0}\nLine: {1} - Column: {2}\nFile: {3}", compilerError.ErrorText,
+                            compilerError.Line, compilerError.Column, compilerError.FileName), "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                File.Delete(CopyIcon);
-                return false;
 
+                File.Delete(destinationIconPath);
+                return compilerResults.Errors.Count == 0;
             }
-            else
-            {
-                File.Delete(CopyIcon);
-                return true;
-            }
-
         }
     }
 }

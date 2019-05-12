@@ -1,33 +1,29 @@
 
 <img src="https://i.imgur.com/azClWYY.png">
 
-# Lime Downloader v0.4
+# Lime Downloader v4.2
 
 It's a loader that download your payload and run it on memory without dropping it to disk and also without crypt payload.
 
 ## Main Features
 
-* .NET - Coded in Visual Basic .NET, required framework 4.0 dependency.
+* .NET - Coded in Visual Basic & C#, required framework 4.0 dependency.
  
 * Dropless - No file drop to disk
 
 * Multi - Insert more than 1 link
-
- 
  
 ## Prerequisites
 
 To open project you need:
 
-1- Visual Studio 2017+
+1- Visual Studio 2015+
 
 2- This repository
-
 
 ## Author
 
 * **NYAN CAT** 
-
 
 ## Disclaimer
 
@@ -38,7 +34,6 @@ You bear the full responsibility of your actions and acknowledge that this softw
 This software's main purpose is NOT to be used maliciously, or on any system that you do not own, or have the right to use.
 
 By using this software, you automatically agree to the above.
-
 
 ## License
 
